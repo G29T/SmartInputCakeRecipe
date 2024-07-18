@@ -85,7 +85,7 @@ const CakeRecipeForm = () => {
             alert('Cake added successfully');
             setIsFormulaValid(false);
         }
-    }, [isFormulaValid]);
+    }, [isFormulaValid, cakeName, cakeIngredients, updateCakes]);
 
 
     const handleSubmit = (e) => {
