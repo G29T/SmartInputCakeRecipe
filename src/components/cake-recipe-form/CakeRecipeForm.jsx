@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCakeContext} from '../../context/CakeProvider';
 import { ingredientsData } from '../../data/ingredients-data';
 import Input from '../input/Input';
@@ -9,6 +9,7 @@ const CakeRecipeForm = () => {
     const [cakeName, setCakeName] = useState('');
     const [cakeIngredients, setCakeIngredients] = useState([]);
     const [ingredientsFormula, setIngredientsFormula] = useState('');
+    const [isFormulaValid, setIsFormulaValid] = useState(false);
     const formStyle = "max-w-md ml-2 md:ml-3 lg:ml-4 p-4 md:p-6 lg:p-8 border border-white bg-gray-600 bg-opacity-50 rounded-lg" ;
     const formConditionalStyle = displayShoppingList ? "mb-14" : "mb-32";
     
@@ -74,22 +75,26 @@ const CakeRecipeForm = () => {
         setIngredientsFormula(value);
     };
 
-    const handleFormulaBlur = () => {
-        handleIngredientsFormula(ingredientsFormula);
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (handleIngredientsFormula(ingredientsFormula)) {
-            const cakeId = `cake_${Date.now()}`
-            updateCakes({ [cakeId]: { name: cakeName, ingredients: cakeIngredients } })
+    useEffect(() => {
+        if (isFormulaValid) {
+            const cakeId = `cake_${Date.now()}`;
+            updateCakes({ [cakeId]: { name: cakeName, ingredients: cakeIngredients } });
             setCakeName('');
             setIngredientsFormula('');
             setCakeIngredients([]);
             alert('Cake added successfully');
         }
-    };
+    }, [isFormulaValid]);
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const isValid = handleIngredientsFormula(ingredientsFormula);
+        if (isValid) {
+            setIsFormulaValid(true);
+        }
+    }
 
     return(
         <>
@@ -110,7 +115,6 @@ const CakeRecipeForm = () => {
                     placeholder="Ingredients: [5] * [egg] + [5g] * [jam]"
                     value={ingredientsFormula}
                     onChange={(e) => handleFormulaChange(e.target.value)}
-                    onBlur={handleFormulaBlur}
                     required={true}
                 /> 
                 <button
