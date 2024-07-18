@@ -45,12 +45,12 @@ const CakeRecipeForm = () => {
             } 
             
             if (ingredientName.toLowerCase() !== 'milk' && ingredientName.toLowerCase() !== 'heavy cream'
-                        && ingredientName.toLowerCase() !== 'unicorn tears' && ingredientName.toLowerCase() !== 'grand marnier' 
-                        && ingredientName.toLowerCase() !== 'egg' && ingredientName.toLowerCase() !== 'vanilla pod' && unit !== 'g') {
-                        
-                        alert(`${ingredientName} should be measured in g`);
-                        return false;
-                    }
+                && ingredientName.toLowerCase() !== 'unicorn tears' && ingredientName.toLowerCase() !== 'grand marnier' 
+                && ingredientName.toLowerCase() !== 'egg' && ingredientName.toLowerCase() !== 'vanilla pod' && unit !== 'g') {
+                    
+                alert(`${ingredientName} should be measured in g`);
+                return false;
+            }
 
             ingredients.push({
                 quantity: quantity,
