@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCakeContext} from '../../context/CakeProvider';
 import { ingredientsData } from '../../data/ingredients-data';
+import Input from '../input/Input';
 
 const CakeRecipeForm = () => {
 
@@ -97,22 +98,20 @@ const CakeRecipeForm = () => {
                 onSubmit={handleSubmit}
             >
                 <p className="text-white text-center text-lg md:text-xl lg:text-2xl font-bold mb-4">What are you cooking today?</p>
-                <input
-                    className="w-full p-2 md:p-3 lg:p-4 mb-4 border rounded-md bg-gray-100 focus:outline-none focus:border-blue-500"
+                <Input
                     type="text"
                     placeholder="Cake Name"
                     value={cakeName}
                     onChange={(e) => setCakeName(e.target.value)}
-                    required
+                    required={true}
                 />
-               <input
-                    className="w-full p-2 md:p-3 lg:p-4 mb-4 border rounded-md bg-gray-100 focus:outline-none focus:border-blue-500"
+               <Input
                     type="text"
                     placeholder="Ingredients: [5] * [egg] + [5g] * [jam]"
                     value={ingredientsFormula}
                     onChange={(e) => handleFormulaChange(e.target.value)}
                     onBlur={handleFormulaBlur}
-                    required
+                    required={true}
                 /> 
                 <button
                     type="submit"
