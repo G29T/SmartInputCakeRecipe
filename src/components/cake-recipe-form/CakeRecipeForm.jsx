@@ -105,6 +105,7 @@ const CakeRecipeForm = () => {
             >
                 <p className="text-white text-center text-lg md:text-xl lg:text-2xl font-bold mb-4">What are you cooking today?</p>
                 <Input
+                    attribution="cake-name"
                     type="text"
                     placeholder="Cake Name"
                     value={cakeName}
@@ -112,6 +113,7 @@ const CakeRecipeForm = () => {
                     required={true}
                 />
                <Input
+                    attribution="ingredients-formula"
                     type="text"
                     placeholder="Ingredients: [5] * [egg] + [5g] * [jam]"
                     value={ingredientsFormula}
