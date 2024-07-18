@@ -83,6 +83,7 @@ const CakeRecipeForm = () => {
             setIngredientsFormula('');
             setCakeIngredients([]);
             alert('Cake added successfully');
+            setIsFormulaValid(false);
         }
     }, [isFormulaValid]);
 
