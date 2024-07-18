@@ -8,6 +8,7 @@ const Input = ({ type, placeholder, value, onChange, onBlur, required }) => {
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             required={required}
         />
     );

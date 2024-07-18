@@ -74,6 +74,10 @@ const CakeRecipeForm = () => {
         setIngredientsFormula(value);
     };
 
+    const handleFormulaBlur = () => {
+        handleIngredientsFormula(ingredientsFormula);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -106,6 +110,7 @@ const CakeRecipeForm = () => {
                     placeholder="Ingredients: [5] * [egg] + [5g] * [jam]"
                     value={ingredientsFormula}
                     onChange={(e) => handleFormulaChange(e.target.value)}
+                    onBlur={handleFormulaBlur}
                     required={true}
                 /> 
                 <button
