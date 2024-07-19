@@ -1,15 +1,23 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import CakeRecipeForm from './CakeRecipeForm';
-import { CakeProvider } from '../../context/CakeProvider';
-import IngredientList from '../ingredient-list/IngredientList';
-import { ingredientsData } from '../../data/ingredients-data';
+import { CakeProvider, useCakeContext } from '../../context/CakeProvider';
 
-const MockCakeProvider = ({ children }) => (
-    <CakeProvider>{children}</CakeProvider>
-  );
+const MockCakeProvider = ({ children }) => {
+    const value = useCakeContext();
+    return <CakeProvider value={value}>{children}</CakeProvider>;
+};
 
-  let mockAlert;
+
+jest.mock('../../context/CakeProvider', () => {
+    const originalModule = jest.requireActual('../../context/CakeProvider');
+    return {
+        ...originalModule,
+        useCakeContext: jest.fn(),
+    };
+});
+
+let mockAlert;
 beforeEach(() => {
     mockAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
 });
@@ -18,72 +26,71 @@ afterEach(() => {
     mockAlert.mockRestore();
 });
 
-
 describe('CakeRecipeForm', () => { 
-    test('it renders the Add Ingredient and Add Cake buttons', () => {
-        render(<CakeRecipeForm />);
 
-        const addIngredientButton = screen.getByTestId('add-ingredient');
-        const addCakeButton = screen.getByTestId('add-cake');
+    const updateCakes = jest.fn();
+    const displayShoppingList = false;
 
-        expect(addIngredientButton).toBeInTheDocument();
-        expect(addCakeButton).toBeInTheDocument();
+    beforeEach(() => {
+        useCakeContext.mockReturnValue({
+            updateCakes,
+            displayShoppingList,
+        });
     });
 
-    test('it renders IngredientList component', () => {
-        render(<CakeRecipeForm />);
+    test('it renders form inputs and buttons', () => {
+        render(
+            <MockCakeProvider>
+                <CakeRecipeForm />
+            </MockCakeProvider>
+        );
 
-        const ingredientList = screen.getByTestId('ingredient-list-0');
-        expect(ingredientList).toBeInTheDocument();
+        expect(screen.getByTestId('cake-name')).toBeInTheDocument();
+        expect(screen.getByTestId('ingredients-formula')).toBeInTheDocument();
+        expect(screen.getByTestId('add-cake')).toBeInTheDocument();
     });
 
-    test('it adds an ingredient when Add Ingredient button is clicked', () => {
-        render(<CakeRecipeForm />);
-    
-        fireEvent.click(screen.getByTestId('add-ingredient'));
-    
-        const ingredientSelect0 = screen.getByTestId('ingredient-list-0');
-        expect(ingredientSelect0).toBeInTheDocument(); 
+    test('it handles form submission', async () => {
+        render(
+            <MockCakeProvider>
+                <CakeRecipeForm />
+            </MockCakeProvider>
+        );
 
-        const ingredientSelect1 = screen.getByTestId('ingredient-list-1');
-        expect(ingredientSelect1).toBeInTheDocument();
+        fireEvent.change(screen.getByTestId('cake-name'), { target: { value: 'Red Velvet Cake' } });
+        fireEvent.change(screen.getByTestId('ingredients-formula'), { target: { value: '[100g] * [flour] + [150g] * [sugar] + [200ml] * [milk]' } });
+        fireEvent.submit(screen.getByTestId('add-cake'));
 
-        const ingredientSelect2 = screen.queryByTestId('ingredient-select-2');
-        expect(ingredientSelect2).not.toBeInTheDocument();
-    });
-    
-    test('it renders quantity input and select fields', () => {
-        render(<IngredientList index={0} ingredients={ingredientsData} handleIngredientSelect={() => {}} />);
-    
-        const quantityInput = screen.getByTestId('ingredient-quantity-0');
-        const ingredientSelect = screen.getByTestId('ingredient-select-0');
-    
-        expect(quantityInput).toBeInTheDocument();
-        expect(ingredientSelect).toBeInTheDocument();
-      });
+        const [[updateObject]] = updateCakes.mock.calls;
 
-    test('it handles ingredient selection', () => {
-        const mockHandleIngredientSelect = jest.fn();
-        render(<IngredientList index={0} ingredients={ingredientsData} handleIngredientSelect={mockHandleIngredientSelect} />);
-    
-        fireEvent.change(screen.getByTestId('ingredient-quantity-0'), { target: { value: '200' } });
-        fireEvent.change(screen.getByTestId('ingredient-select-0'), { target: { value: 'flour' } });
-    
-        expect(mockHandleIngredientSelect).toHaveBeenCalledWith(0, 'quantity', '200');
-        expect(mockHandleIngredientSelect).toHaveBeenCalledWith(0, 'ingredient', 'flour');
+        const cakeKey = Object.keys(updateObject)[0];
+        
+        expect(cakeKey).toMatch(/^cake_\d+$/);
+        expect(updateObject[cakeKey]).toEqual({
+            name: 'Red Velvet Cake',
+            ingredients: [
+                { quantity: '100', ingredient: 'flour' },
+                { quantity: '150', ingredient: 'sugar' },
+                { quantity: '200', ingredient: 'milk' }
+            ]
+        });
+
     });
 
     test('it submits the form successfully', async () => {
-        render(<CakeRecipeForm />, { wrapper: MockCakeProvider });
+        render(
+            <MockCakeProvider>
+                <CakeRecipeForm />
+            </MockCakeProvider>
+        );
 
-        const cakeNameInput = screen.getByPlaceholderText('Cake Name');
-        fireEvent.change(cakeNameInput, { target: { value: 'Red Velvet Cake' } });
-
-        const submitButton = screen.getByTestId('add-cake');
-        fireEvent.click(submitButton);
+        fireEvent.change(screen.getByTestId('cake-name'), { target: { value: 'Red Velvet Cake' } });
+        fireEvent.change(screen.getByTestId('ingredients-formula'), { target: { value: '[3] * [egg] + [150g] * [sugar] + [200ml] * [milk]' } });
+        fireEvent.submit(screen.getByTestId('add-cake'));
 
         await waitFor(() => {
             expect(window.alert).toHaveBeenCalledWith('Cake added successfully');
         });
+
     });
 })
