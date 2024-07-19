@@ -13,6 +13,7 @@ const CakeHistory = () => {
                         <span className='mr-2 text-sm md:text-base lg:text-lg'>{cakes[cakeKey].name}</span>
                         <div className="flex space-x-2">
                             <button
+                                data-testid="edit-cake-name"
                                 type="button"
                                 className="text-white hover:text-gray-300"
                                 onClick={() => editCakeName(cakeKey)}
@@ -21,6 +22,7 @@ const CakeHistory = () => {
                                 <PencilIcon className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 mr-1" />
                             </button>
                             <button
+                                data-testid="delete-cake"
                                 type="button"
                                 className=" text-white hover:text-gray-300 "
                                 onClick={() => deleteCake(cakeKey)}
