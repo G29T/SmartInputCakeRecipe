@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CakeRecipePlanner from './components/cake-recip-planner/CakeRecipePlanner';
+import CakeRecipePlanner from './components/cake-recipe-planner/CakeRecipePlanner';
 import ShoppingList  from './components/shopping-list/ShoppingList';
 import { useCakeContext} from './context/CakeProvider'
 
