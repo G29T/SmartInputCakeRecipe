@@ -23,32 +23,38 @@ const CakeRecipeForm = () => {
             const quantity = ingredientMatch[1];
             const unit = ingredientMatch[2].trim();
             const ingredientName = ingredientMatch[3].trim();
+            const lowerCaseName = ingredientName.toLowerCase();
+
+            const measurementUnits = {
+                'egg': '',
+                'vanilla pod': '',
+                'milk': 'ml',
+                'heavy cream': 'ml',
+                'unicorn tears': 'ml',
+                'grand marnier': 'ml'
+            };
     
             if (!storedIngredients.includes(ingredientName)) {
                 alert(`Ingredient "${ingredientName}" does not exist`);
                 return false;
             }
 
-            if (!unit && ingredientName.toLowerCase() !== 'egg' && ingredientName.toLowerCase() !== 'vanilla pod') {
+            if (!unit && !['egg', 'vanilla pod'].includes(lowerCaseName)) {
                 alert(`Missing measurement unit for ingredient "${ingredientName}"`);
                 return false;
             }
 
-            if (unit && ( ingredientName.toLowerCase() === 'egg' || ingredientName.toLowerCase() === 'vanilla pod')) {
+            if (unit && ['egg', 'vanilla pod'].includes(lowerCaseName)) {
                 alert(`There shouldn't be a measurement unit for ingredient "${ingredientName}"`);
                 return false;
             }
 
-            if ((ingredientName.toLowerCase() === 'milk' || ingredientName.toLowerCase() === 'heavy cream'
-                || ingredientName.toLowerCase() === 'unicorn tears' || ingredientName.toLowerCase() === 'grand marnier') && unit !== 'ml') {
+            if (unit && measurementUnits[lowerCaseName] && unit !== measurementUnits[lowerCaseName]) {
                 alert(`${ingredientName} should be measured in ml`);
                 return false;
             } 
             
-            if (ingredientName.toLowerCase() !== 'milk' && ingredientName.toLowerCase() !== 'heavy cream'
-                && ingredientName.toLowerCase() !== 'unicorn tears' && ingredientName.toLowerCase() !== 'grand marnier' 
-                && ingredientName.toLowerCase() !== 'egg' && ingredientName.toLowerCase() !== 'vanilla pod' && unit !== 'g') {
-                    
+            if (unit && !measurementUnits[lowerCaseName] && unit !== 'g') {
                 alert(`${ingredientName} should be measured in g`);
                 return false;
             }
