@@ -1,6 +1,6 @@
 # Description
 The Cake Recipe Planner app is designed for managing cake recipes within a React web app.
-It provides a form where users can input a cake name, add ingredients with their respective quantities, and submit the recipe.
+It provides a form where users can input a cake name, add ingredients with their respective quantities using the formula format, and submit the recipe.
 Additionally, it includes features to dynamically add/remove ingredients and print a shopping list.
 
 Inside the Cake History section the users can click on the pencil icon to edit the name of a cake. 
@@ -15,9 +15,7 @@ The app can be accessed via https://curious-kashata-97ecb9.netlify.app/
 ## Using the app
 ### Form
 - Enter a cake name in the input field.
-- Use the "Add Ingredient" button to add ingredients to the recipe.
-- Select an ingredient from the dropdown and specify its quantity.
-- Click "Remove" next to an ingredient to remove it.
+- Input ingredients and their quantities using the formula format: [5] * [egg] + [1] * [vanilla pod] 
 - Click "Add Cake" to submit the form and add the cake recipe.
 - A success message will alert upon successful submission
 
