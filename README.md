@@ -1,7 +1,7 @@
 # Description
 The Cake Recipe Planner app is designed for managing cake recipes within a React web app.
 It provides a form where users can input a cake name, add ingredients with their respective quantities using the formula format, and submit the recipe.
-Additionally, it includes features to dynamically add/remove ingredients and print a shopping list.
+Additionally, it includes a feature print a shopping list.
 
 Inside the Cake History section the users can click on the pencil icon to edit the name of a cake. 
 Furthermore, cakes can be removed from the list by clicking on the delete button/bin icon.
@@ -10,7 +10,7 @@ The application recalculates the shopping list automatically when a cake is dele
 
 In future development, users will be able to view cake recipes and make modifications to ingredients and quantities. They will also be able to access past shopping lists along with associated cakes, and adjust the recipes accordingly.
 
-The app can be accessed via https://curious-kashata-97ecb9.netlify.app/
+The app can be accessed via https://jazzy-duckanoo-e86de9.netlify.app/
 
 ## Using the app
 ### Form
@@ -50,7 +50,7 @@ npm
 
 ## Installation
 - Clone the repository to your local machine.
-- Navigate to the project directory: cd CakeRecipePlanner
+- Navigate to the project directory: cd SmartInputCakeRecipe
 - Install dependencies: npm install
 - npm install uuid
 - npm install @heroicons/react
