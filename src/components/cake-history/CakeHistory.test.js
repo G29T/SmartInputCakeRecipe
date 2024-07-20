@@ -9,7 +9,7 @@ jest.mock('../../context/CakeProvider', () => ({
 }));
 
 describe('CakeHistory', () => {
-  it('it renders the cake list correctly', () => {
+  it('renders the cake list correctly', () => {
     const mockCakes = {
       cake1: { name: 'Red Velvet Cake' },
       cake2: { name: 'Brownie' },
@@ -30,7 +30,7 @@ describe('CakeHistory', () => {
     expect(screen.getByText('Brownie')).toBeInTheDocument();
   });
 
-  it('it calls editCakeName when edit button is clicked', () => {
+  it('calls editCakeName when edit button is clicked', () => {
     const mockCakes = {
       cake1: { name: 'Red Velvet Cake' },
     };
@@ -51,7 +51,7 @@ describe('CakeHistory', () => {
     expect(mockEditCakeName).toHaveBeenCalledWith('cake1');
   });
 
-  it('it calls deleteCake when delete button is clicked', () => {
+  it('calls deleteCake when delete button is clicked', () => {
     const mockCakes = {
       cake1: { name: 'Brownie' },
     };

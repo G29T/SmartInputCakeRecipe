@@ -8,7 +8,6 @@ const MockCakeProvider = ({ children }) => {
     return <CakeProvider value={value}>{children}</CakeProvider>;
 };
 
-
 jest.mock('../../context/CakeProvider', () => {
     const originalModule = jest.requireActual('../../context/CakeProvider');
     return {
@@ -38,7 +37,7 @@ describe('CakeRecipeForm', () => {
         });
     });
 
-    test('it renders form inputs and buttons', () => {
+    test('renders form inputs and buttons', () => {
         render(
             <MockCakeProvider>
                 <CakeRecipeForm />
@@ -50,7 +49,7 @@ describe('CakeRecipeForm', () => {
         expect(screen.getByTestId('add-cake')).toBeInTheDocument();
     });
 
-    test('it handles form submission', async () => {
+    test('handles form submission', async () => {
         render(
             <MockCakeProvider>
                 <CakeRecipeForm />
@@ -77,7 +76,7 @@ describe('CakeRecipeForm', () => {
 
     });
 
-    test('it submits the form successfully', async () => {
+    test('submits the form successfully', async () => {
         render(
             <MockCakeProvider>
                 <CakeRecipeForm />

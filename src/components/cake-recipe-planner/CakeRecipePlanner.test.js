@@ -9,7 +9,7 @@ jest.mock('../../context/CakeProvider', () => ({
 
 describe('CakeRecipePlanner', () => {
 
-  it('it renders components correctly', () => {
+  it('renders components correctly', () => {
 
     const mockPrintShoppingList = jest.fn();
     const mockContextValue = {
@@ -28,7 +28,7 @@ describe('CakeRecipePlanner', () => {
     expect(screen.getByText('What are you cooking today?')).toBeInTheDocument();
   });
 
-  it('it handles print shopping list button click', () => {
+  it('handles print shopping list button click', () => {
 
     const mockPrintShoppingList = jest.fn();
     const mockContextValue = {
