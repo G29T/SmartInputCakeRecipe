@@ -30,11 +30,11 @@ describe('ShoppingList', () => {
         expect(screen.getByText('egg')).toBeInTheDocument();
         expect(screen.getByText('3')).toBeInTheDocument(); 
         expect(screen.getByText('flour')).toBeInTheDocument();
-        expect(screen.getByText('100 g')).toBeInTheDocument(); 
+        expect(screen.getByText('100g')).toBeInTheDocument(); 
         expect(screen.getByText('sugar')).toBeInTheDocument();
-        expect(screen.getByText('50 g')).toBeInTheDocument();
+        expect(screen.getByText('50g')).toBeInTheDocument();
         expect(screen.getByText('milk')).toBeInTheDocument();
-        expect(screen.getByText('200 ml')).toBeInTheDocument(); 
+        expect(screen.getByText('200ml')).toBeInTheDocument(); 
     });
 
     it('handles close shopping list', () => {

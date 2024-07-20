@@ -11,9 +11,9 @@ export const ShoppingList = () => {
         if (ingredient === 'egg' || ingredient === "vanilla pod") {
             return '';
         } else if (ingredient === 'milk' || ingredient === 'heavy cream' || ingredient === 'unicorn tears' || ingredient === 'grand marnier') {
-            return ' ml';
+            return 'ml';
         } else {
-            return ' g';
+            return 'g';
         }
     };
 
