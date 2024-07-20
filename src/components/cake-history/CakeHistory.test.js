@@ -9,20 +9,23 @@ jest.mock('../../context/CakeProvider', () => ({
 }));
 
 describe('CakeHistory', () => {
-  it('renders the cake list correctly', () => {
-    const mockCakes = {
-      cake1: { name: 'Red Velvet Cake' },
-      cake2: { name: 'Brownie' },
-    };
-    const mockDeleteCake = jest.fn();
-    const mockEditCakeName = jest.fn();
 
+  const mockCakes = {
+    cake_1: { name: 'Red Velvet Cake' },
+    cake_2: { name: 'Brownie' },
+  };
+  const mockDeleteCake = jest.fn();
+  const mockEditCakeName = jest.fn();
+
+  beforeEach(() => {
     useCakeContext.mockReturnValue({
       cakes: mockCakes,
       deleteCake: mockDeleteCake,
       editCakeName: mockEditCakeName,
     });
+});
 
+  it('renders the cake list correctly', () => {
     render(<CakeHistory />);
 
     expect(screen.getByText('Cake History')).toBeInTheDocument();
@@ -31,44 +34,20 @@ describe('CakeHistory', () => {
   });
 
   it('calls editCakeName when edit button is clicked', () => {
-    const mockCakes = {
-      cake1: { name: 'Red Velvet Cake' },
-    };
-    const mockEditCakeName = jest.fn();
-    const mockDeleteCake = jest.fn();
-
-    useCakeContext.mockReturnValue({
-      cakes: mockCakes,
-      deleteCake: mockDeleteCake,
-      editCakeName: mockEditCakeName,
-    });
-
     render(<CakeHistory />);
 
-    const editButton = screen.getByTestId('edit-cake-name');
+    const editButton = screen.getByTestId('edit-cake-name-cake_1');
     fireEvent.click(editButton);
 
-    expect(mockEditCakeName).toHaveBeenCalledWith('cake1');
+    expect(mockEditCakeName).toHaveBeenCalledWith('cake_1');
   });
 
   it('calls deleteCake when delete button is clicked', () => {
-    const mockCakes = {
-      cake1: { name: 'Brownie' },
-    };
-    const mockDeleteCake = jest.fn();
-    const mockEditCakeName = jest.fn();
-
-    useCakeContext.mockReturnValue({
-      cakes: mockCakes,
-      deleteCake: mockDeleteCake,
-      editCakeName: mockEditCakeName,
-    });
-
     render(<CakeHistory />);
 
-    const deleteButton = screen.getByTestId('delete-cake');
+    const deleteButton = screen.getByTestId('delete-cake-cake_1');
     fireEvent.click(deleteButton);
 
-    expect(mockDeleteCake).toHaveBeenCalledWith('cake1');
+    expect(mockDeleteCake).toHaveBeenCalledWith('cake_1');
   });
 });
