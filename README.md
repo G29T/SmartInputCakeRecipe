@@ -1,7 +1,7 @@
 # Description
 The Cake Recipe Planner app is designed for managing cake recipes within a React web app.
 It provides a form where users can input a cake name, add ingredients with their respective quantities using the formula format, and submit the recipe.
-Additionally, it includes a feature print a shopping list.
+Additionally, it includes a feature to print a shopping list.
 
 Inside the Cake History section the users can click on the pencil icon to edit the name of a cake. 
 Furthermore, cakes can be removed from the list by clicking on the delete button/bin icon.
